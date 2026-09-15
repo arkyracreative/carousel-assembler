@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#11110f" />
+    <title>Carousel Assembler</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="#" aria-label="Carousel Assembler, inicio">
+        <span class="brand-mark" aria-hidden="true">CA</span>
+        <span>Carousel Assembler</span>
+      </a>
+      <span class="local-badge"><span aria-hidden="true">●</span> Todo ocurre en tu dispositivo</span>
+    </header>
+
+    <main>
+      <section class="hero" aria-labelledby="page-title">
+        <p class="eyebrow">Constructor de carruseles</p>
+        <h1 id="page-title">De slides sueltos a<br /><em>una sola historia.</em></h1>
+        <p class="hero-copy">Carga, ordena y une tus imágenes en una tira horizontal lista para publicar.</p>
+      </section>
+
+      <section class="workspace" aria-label="Editor de carrusel">
+        <div class="editor-column">
+          <div class="section-heading">
+            <div><span class="step">01</span><h2>Tus slides</h2></div>
+            <button class="button button-primary" id="addButton" type="button"><span aria-hidden="true">＋</span> Añadir imágenes</button>
+            <input id="fileInput" type="file" accept="image/*" multiple hidden />
+          </div>
+
+          <div id="dropZone" class="drop-zone" tabindex="0" role="button" aria-label="Añadir imágenes">
+            <div class="upload-icon" aria-hidden="true">↑</div>
+            <strong>Arrastra tus imágenes aquí</strong>
+            <span>o toca para buscarlas en tu dispositivo</span>
+            <small>PNG, JPG, WEBP · Selección múltiple</small>
+          </div>
+
+          <div id="slideList" class="slide-list" aria-live="polite"></div>
+          <p id="emptyHint" class="empty-hint">Tus slides aparecerán aquí. Podrás arrastrarlos o usar las flechas para ordenarlos.</p>
+
+          <div class="section-heading settings-title">
+            <div><span class="step">02</span><h2>Ajustes</h2></div>
+          </div>
+
+          <div class="settings-grid">
+            <fieldset class="control-group size-control">
+              <legend>Tamaño del slide</legend>
+              <div class="select-wrap">
+                <select id="sizeSelect" aria-label="Tamaño del slide">
+                  <option value="1080x1350">1080 × 1350 — Vertical 4:5</option>
+                  <option value="1080x1440">1080 × 1440 — Vertical 3:4</option>
+                  <option value="1080x1920">1080 × 1920 — Historia 9:16</option>
+                  <option value="custom">Personalizado</option>
+                </select>
+              </div>
+              <div id="customSize" class="custom-size" hidden>
+                <label>Ancho <input id="customWidth" type="number" min="1" max="10000" value="1080" /></label>
+                <span>×</span>
+                <label>Alto <input id="customHeight" type="number" min="1" max="10000" value="1350" /></label>
+              </div>
+            </fieldset>
+
+            <fieldset class="control-group">
+              <legend>Ajuste de imagen</legend>
+              <div class="segmented">
+                <label><input type="radio" name="fit" value="cover" checked /><span>Cover</span></label>
+                <label><input type="radio" name="fit" value="contain" /><span>Contain</span></label>
+              </div>
+            </fieldset>
+
+            <fieldset class="control-group">
+              <legend>Fondo</legend>
+              <div class="segmented background-options">
+                <label><input type="radio" name="background" value="#0a0a0a" checked /><span><i class="swatch black"></i> Negro</span></label>
+                <label><input type="radio" name="background" value="#ffffff" /><span><i class="swatch white"></i> Blanco</span></label>
+                <label><input type="radio" name="background" value="transparent" /><span><i class="swatch transparent"></i> Transparente</span></label>
+              </div>
+              <small>La transparencia solo se conserva en PNG.</small>
+            </fieldset>
+
+            <fieldset class="control-group">
+              <legend>Formato de salida</legend>
+              <div class="segmented">
+                <label><input type="radio" name="format" value="png" checked /><span>PNG</span></label>
+                <label><input type="radio" name="format" value="jpeg" /><span>JPG</span></label>
+              </div>
+              <div id="qualityControl" class="quality-control" hidden>
+                <label for="quality">Calidad JPG <output id="qualityValue">90%</output></label>
+                <input id="quality" type="range" min="40" max="100" value="90" />
+              </div>
+            </fieldset>
+          </div>
+        </div>
+
+        <aside class="preview-panel">
+          <div class="section-heading">
+            <div><span class="step">03</span><h2>Vista previa</h2></div>
+          </div>
+          <div id="previewViewport" class="preview-viewport">
+            <div id="previewEmpty" class="preview-empty"><span aria-hidden="true">▧</span><p>Añade imágenes para ver<br />tu carrusel aquí</p></div>
+            <div id="previewStrip" class="preview-strip"></div>
+          </div>
+          <p class="scroll-note">Desliza horizontalmente para revisar todos los slides</p>
+
+          <div class="export-card">
+            <h3>Resumen de exportación</h3>
+            <dl>
+              <div><dt>Slides</dt><dd id="summarySlides">0</dd></div>
+              <div><dt>Tamaño por slide</dt><dd id="summarySlideSize">1080 × 1350 px</dd></div>
+              <div><dt>Tamaño final</dt><dd id="summaryFinalSize">0 × 1350 px</dd></div>
+              <div><dt>Formato</dt><dd id="summaryFormat">PNG</dd></div>
+            </dl>
+            <div id="mobileWarning" class="warning" hidden><span aria-hidden="true">!</span><p><strong>Archivo grande</strong>La imagen final puede ser pesada para algunos móviles.</p></div>
+            <button id="exportButton" class="button button-export" type="button" disabled>Exportar carrusel <span aria-hidden="true">→</span></button>
+            <p id="statusMessage" class="status" role="status"></p>
+          </div>
+        </aside>
+      </section>
+    </main>
+
+    <footer><span>Carousel Assembler</span><span>Privado por diseño · Sin subidas · Sin servidores</span></footer>
+    <script src="app.js"></script>
+  </body>
+</html>
