@@ -93,11 +93,95 @@
               </div>
             </fieldset>
           </div>
+
+          <div class="section-heading settings-title">
+            <div><span class="step">03</span><h2>Logo y numeración</h2></div>
+          </div>
+
+          <div class="decoration-settings">
+            <fieldset class="control-group decoration-group">
+              <legend>Logo / firma</legend>
+              <div class="toggle-row">
+                <label class="toggle"><input id="logoEnabled" type="checkbox" disabled /><span>Mostrar logo</span></label>
+                <button id="removeLogo" class="text-button" type="button" disabled>Eliminar logo</button>
+              </div>
+              <label class="upload-logo button button-secondary" for="logoInput">Subir PNG o SVG</label>
+              <input id="logoInput" type="file" accept="image/png,image/svg+xml,.png,.svg" hidden />
+              <div id="logoPreviewWrap" class="logo-preview-wrap" hidden>
+                <img id="logoPreview" alt="Vista previa del logo" />
+                <span id="logoFileName"></span>
+              </div>
+              <div class="field-grid">
+                <label>Aplicar a
+                  <select id="logoScope">
+                    <option value="all">Todos los slides</option>
+                    <option value="first">Solo el primero</option>
+                    <option value="last">Solo el último</option>
+                    <option value="except-first">Todos excepto el primero</option>
+                    <option value="custom">Rango personalizado</option>
+                  </select>
+                </label>
+                <label id="logoRangeWrap" hidden>Rango (ej. 2-8)
+                  <input id="logoRange" type="text" value="2-8" inputmode="numeric" placeholder="2-8" />
+                </label>
+                <label>Posición
+                  <select id="logoPosition">
+                    <option value="bottom-right">Abajo derecha</option><option value="bottom-left">Abajo izquierda</option>
+                    <option value="top-right">Arriba derecha</option><option value="top-left">Arriba izquierda</option>
+                    <option value="top-center">Arriba centro</option><option value="bottom-center">Abajo centro</option>
+                  </select>
+                </label>
+                <label>Tamaño <output id="logoSizeValue">15%</output>
+                  <input id="logoSize" type="range" min="3" max="50" value="15" />
+                </label>
+                <label>Margen <output id="logoMarginValue">4%</output>
+                  <input id="logoMargin" type="range" min="0" max="20" value="4" />
+                </label>
+                <label>Opacidad <output id="logoOpacityValue">100%</output>
+                  <input id="logoOpacity" type="range" min="0" max="100" value="100" />
+                </label>
+              </div>
+            </fieldset>
+
+            <fieldset class="control-group decoration-group">
+              <legend>Numeración</legend>
+              <label class="toggle"><input id="numberEnabled" type="checkbox" /><span>Mostrar numeración</span></label>
+              <div class="field-grid">
+                <label>Formato
+                  <select id="numberFormat"><option value="plain">1</option><option value="fraction">1/10</option><option value="padded">01</option><option value="padded-fraction">01/10</option></select>
+                </label>
+                <label>Posición
+                  <select id="numberPosition">
+                    <option value="bottom-right">Abajo derecha</option><option value="bottom-left">Abajo izquierda</option>
+                    <option value="top-right">Arriba derecha</option><option value="top-left">Arriba izquierda</option>
+                    <option value="top-center">Arriba centro</option><option value="bottom-center">Abajo centro</option>
+                  </select>
+                </label>
+                <label>Tamaño <output id="numberSizeValue">4%</output>
+                  <input id="numberSize" type="range" min="1" max="15" value="4" />
+                </label>
+                <label>Color <input id="numberColor" type="color" value="#ffffff" /></label>
+                <label>Opacidad <output id="numberOpacityValue">100%</output>
+                  <input id="numberOpacity" type="range" min="0" max="100" value="100" />
+                </label>
+                <label>Margen <output id="numberMarginValue">4%</output>
+                  <input id="numberMargin" type="range" min="0" max="20" value="4" />
+                </label>
+              </div>
+              <label class="toggle toggle-background"><input id="numberBackground" type="checkbox" /><span>Fondo detrás del número</span></label>
+              <div id="numberBackgroundOptions" class="field-grid" hidden>
+                <label>Color de fondo <input id="numberBackgroundColor" type="color" value="#000000" /></label>
+                <label>Opacidad <output id="numberBackgroundOpacityValue">60%</output><input id="numberBackgroundOpacity" type="range" min="0" max="100" value="60" /></label>
+                <label>Relleno <output id="numberPaddingValue">1%</output><input id="numberPadding" type="range" min="0" max="8" value="1" /></label>
+                <label>Esquinas <output id="numberRadiusValue">1%</output><input id="numberRadius" type="range" min="0" max="8" value="1" /></label>
+              </div>
+            </fieldset>
+          </div>
         </div>
 
         <aside class="preview-panel">
           <div class="section-heading">
-            <div><span class="step">03</span><h2>Vista previa</h2></div>
+            <div><span class="step">04</span><h2>Vista previa</h2></div>
           </div>
           <div id="previewViewport" class="preview-viewport">
             <div id="previewEmpty" class="preview-empty"><span aria-hidden="true">▧</span><p>Añade imágenes para ver<br />tu carrusel aquí</p></div>
@@ -115,12 +199,15 @@
             </dl>
             <div id="mobileWarning" class="warning" hidden><span aria-hidden="true">!</span><p><strong>Archivo grande</strong>La imagen final puede ser pesada para algunos móviles.</p></div>
             <button id="exportButton" class="button button-export" type="button" disabled>Exportar carrusel <span aria-hidden="true">→</span></button>
+            <button id="exportSlidesButton" class="button button-export button-individual" type="button" disabled>Exportar slides individuales <span aria-hidden="true">↓</span></button>
+            <p class="zip-note">La exportación ZIP no está incluida para mantener la app sin librerías externas. Los slides se descargan como archivos PNG separados.</p>
             <p id="statusMessage" class="status" role="status"></p>
           </div>
         </aside>
       </section>
     </main>
 
+    <p class="privacy-note">Your images are processed locally on this device and are not uploaded to any server.</p>
     <footer><span>Carousel Assembler</span><span>Privado por diseño · Sin subidas · Sin servidores</span></footer>
     <script src="app.js"></script>
   </body>
