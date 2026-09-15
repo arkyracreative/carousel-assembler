@@ -17,6 +17,10 @@ python3 -m http.server 8000
 
 Después, abre `http://localhost:8000`.
 
+## GitHub Pages
+
+Publica la raíz de la rama en GitHub Pages. La aplicación usa rutas relativas (`styles.css` y `app.js`), por lo que funciona tanto en un dominio propio como en una URL de proyecto del tipo `usuario.github.io/carousel-assembler/` sin cambiar el código.
+
 ## Funciones
 
 - Carga múltiple de PNG, JPG, WEBP y otros formatos de imagen compatibles con el navegador.
